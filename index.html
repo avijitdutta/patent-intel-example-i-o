@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patent Intelligence · Example Input / Output · Robotics 2020–2025</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body, p, h1, h2, h3, pre, table { margin: 0; }
+
+:root {
+  --bg:        #08080E;
+  --s1:        #10101A;
+  --s2:        #0B0B13;
+  --border:    rgba(255,255,255,0.07);
+  --t1:        #E2E1EE;
+  --t2:        #7C7B92;
+  --t3:        #3E3D50;
+  --purple:    #8F87E8;
+  --green:     #22B885;
+  --blue:      #4B96E8;
+  --amber:     #C98A27;
+  --red:       #D95555;
+  --purple-bg: rgba(143,135,232,0.11);
+  --green-bg:  rgba(34,184,133,0.11);
+  --blue-bg:   rgba(75,150,232,0.11);
+  --amber-bg:  rgba(201,138,39,0.11);
+  --red-bg:    rgba(217,85,85,0.11);
+  --r-sm: 4px;
+  --r-md: 7px;
+  --r-lg: 11px;
+}
+
+html { color-scheme: dark; }
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--t1);
+  min-height: 100vh;
+  padding: 2.25rem 1.5rem 3.5rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+}
+
+.page { max-width: 980px; margin: 0 auto; }
+
+/* Header */
+.ph {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.ph-title { font-size: 15px; font-weight: 600; color: var(--t1); letter-spacing: -0.015em; margin-bottom: 3px; }
+.ph-sub   { font-size: 11px; color: var(--t3); }
+.ph-note  { font-size: 11px; color: var(--t3); text-align: right; }
+
+/* Cards */
+.card {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 1rem 1.25rem;
+}
+.icard {
+  background: var(--s2);
+  border-radius: var(--r-md);
+  padding: 0.875rem 1rem;
+}
+
+/* Grids */
+.g4  { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.g2  { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.g32 { display: grid; grid-template-columns: 3fr 2fr; gap: 10px; }
+.mb  { margin-bottom: 10px; }
+
+/* Section label */
+.slabel {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--t3);
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+/* Pills */
+.pill { display: inline-block; font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 20px; line-height: 1.7; }
+.p-purple { background: var(--purple-bg); color: var(--purple); }
+.p-green  { background: var(--green-bg);  color: var(--green);  }
+.p-blue   { background: var(--blue-bg);   color: var(--blue);   }
+.p-amber  { background: var(--amber-bg);  color: var(--amber);  }
+.p-red    { background: var(--red-bg);    color: var(--red);    }
+
+/* Code block */
+.code-block {
+  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", ui-monospace, monospace;
+  font-size: 10.5px;
+  color: var(--t2);
+  line-height: 1.85;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Stat number */
+.stat-num {
+  font-size: 23px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  margin: 0 0 2px;
+}
+
+/* Skill chain */
+.skill-chain {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+.skill-sep { font-size: 10px; color: var(--t3); }
+
+/* Legend */
+.legend { display: flex; gap: 14px; font-size: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 4px; color: var(--t2); }
+.swatch-sq { width: 10px; height: 10px; border-radius: 2px; display: inline-block; flex-shrink: 0; }
+.swatch-ln { width: 14px; height: 2px; display: inline-block; flex-shrink: 0; }
+
+/* Table */
+.data-table { width: 100%; font-size: 11px; border-collapse: collapse; table-layout: fixed; }
+.data-table th {
+  text-align: left;
+  padding: 0 0 6px;
+  color: var(--t2);
+  font-weight: 500;
+  border-bottom: 1px solid var(--border);
+}
+.data-table td { padding: 5px 0; color: var(--t1); border-bottom: 1px solid var(--border); vertical-align: middle; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table .num { text-align: right; }
+.data-table .trnd { text-align: right; }
+
+/* Bar track */
+.bar-track { width: 80px; height: 5px; background: var(--s2); border-radius: 3px; overflow: hidden; }
+.bar-fill  { height: 100%; border-radius: 3px; }
+
+/* Inflection flags */
+.flag { border-radius: 0; padding-left: 10px; }
+.flag + .flag { margin-top: 10px; }
+
+/* Alert box */
+.alert-amber {
+  background: rgba(201,138,39,0.1);
+  border-radius: var(--r-md);
+  padding: 8px 10px;
+  border: 1px solid rgba(201,138,39,0.2);
+}
+.alert-amber p { font-size: 10px; color: var(--amber); }
+
+/* White space cards */
+.ws-card { background: var(--s2); border-radius: var(--r-md); padding: 10px 12px; }
+.ws-card + .ws-card { margin-top: 8px; }
+
+/* Run button */
+.run-btn {
+  margin-top: 10px;
+  width: 100%;
+  font-size: 11px;
+  font-family: inherit;
+  background: rgba(143,135,232,0.1);
+  border: 1px solid rgba(143,135,232,0.2);
+  color: var(--purple);
+  padding: 8px 12px;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.15s;
+}
+.run-btn:hover { background: rgba(143,135,232,0.17); }
+
+/* Narrative */
+.narrative-p { font-size: 12px; color: var(--t1); line-height: 1.85; }
+.narrative-p + .narrative-p { margin-top: 10px; }
+
+/* Source tags */
+.src-tag {
+  font-size: 10px;
+  background: var(--s2);
+  color: var(--t2);
+  padding: 2px 8px;
+  border-radius: var(--r-md);
+}
+
+/* Overflow table wrapper */
+.tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* Responsive */
+@media (max-width: 820px) {
+  .g4  { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .g32 { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .g2, .g4, .g32 { grid-template-columns: 1fr; }
+  .ph { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .ph-note { text-align: left; }
+  body { padding: 1.5rem 1rem 2.5rem; }
+  .bar-track { width: 60px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="ph">
+    <div>
+      <h1 class="ph-title">Patent Intelligence · Example I/O</h1>
+      <p class="ph-sub">sector-landscape-report workflow · Robotics · 2020–2025 · USPTO + EPO + CNIPA</p>
+    </div>
+    <p class="ph-note">IPC: B25J, G05B<br>Espacenet · Lens.org · USPTO PatFT</p>
+  </header>
+
+  <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap">Example input and output for the patent intelligence sector landscape workflow, applied to Robotics across USPTO, EPO, and CNIPA from 2020 to 2025.</h2>
+
+  <!-- Input -->
+  <p class="slabel">
+    <i class="ti ti-terminal-2" aria-hidden="true" style="font-size:12px;vertical-align:-1px;margin-right:4px"></i>Input
+  </p>
+
+  <div class="card mb">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+      <span style="font-size:12px;font-weight:500;color:var(--t1)">sector-landscape-report</span>
+      <span class="pill p-blue" style="margin-left:auto">v1.0</span>
+    </div>
+    <pre class="code-block">{
+  "workflow": "sector-landscape-report",
+  "params": {
+    "sectors":     ["Robotics"],
+    "ipc_codes":   ["B25J", "G05B"],
+    "time_range":  { "from": "2020", "to": "2025", "cohort": "annual" },
+    "geographies": ["USPTO", "EPO", "CNIPA"],
+    "databases":   ["Espacenet", "Lens.org", "USPTO PatFT"],
+    "exclude_self_citations":       true,
+    "commercialization_signals":    true,
+    "functional_taxonomy":          "custom-v2"
+  },
+  "output": ["snapshot_table","trend_chart","inflection_flags",
+             "commercialization_audit","white_space_signal","narrative"]
+}</pre>
+  </div>
+
+  <!-- Skill chain -->
+  <div class="skill-chain">
+    <span style="font-size:10px;color:var(--t3)">Skills run:</span>
+    <span class="pill p-green">patent-search</span>
+    <i class="ti ti-chevron-right skill-sep" aria-hidden="true"></i>
+    <span class="pill p-green">entity-resolver</span>
+    <i class="ti ti-chevron-right skill-sep" aria-hidden="true"></i>
+    <span class="pill p-green">functional-classifier</span>
+    <i class="ti ti-chevron-right skill-sep" aria-hidden="true"></i>
+    <span class="pill p-green">velocity-calculator</span>
+    <i class="ti ti-chevron-right skill-sep" aria-hidden="true"></i>
+    <span class="pill p-purple">influence-scorer</span>
+    <i class="ti ti-chevron-right skill-sep" aria-hidden="true"></i>
+    <span class="pill p-blue">commercialization-scorer</span>
+    <i class="ti ti-chevron-right skill-sep" aria-hidden="true"></i>
+    <span class="pill p-amber">narrative-synthesizer</span>
+  </div>
+
+  <!-- Output label -->
+  <p class="slabel">
+    <i class="ti ti-report-analytics" aria-hidden="true" style="font-size:12px;vertical-align:-1px;margin-right:4px"></i>Output · Robotics · 2020–2025 · USPTO + EPO + CNIPA
+  </p>
+
+  <!-- Snapshot metrics -->
+  <div class="g4 mb">
+    <div class="icard">
+      <p style="font-size:11px;color:var(--t2);margin:0 0 4px">Volume (2025)</p>
+      <p class="stat-num" style="color:var(--t1)">26,800</p>
+      <p style="font-size:10px;color:var(--t3)">cross-office filings</p>
+    </div>
+    <div class="icard">
+      <p style="font-size:11px;color:var(--t2);margin:0 0 4px">Velocity (2024→25)</p>
+      <p class="stat-num" style="color:var(--green)">+8.9%</p>
+      <p style="font-size:10px;color:var(--t3)">recovering post-2023 dip</p>
+    </div>
+    <div class="icard">
+      <p style="font-size:11px;color:var(--t2);margin:0 0 4px">Median influence</p>
+      <p class="stat-num" style="color:var(--t1)">8.2</p>
+      <p style="font-size:10px;color:var(--t3)">forward citations (ex-self)</p>
+    </div>
+    <div class="icard">
+      <p style="font-size:11px;color:var(--t2);margin:0 0 4px">Commercialisation</p>
+      <p class="stat-num" style="color:var(--amber)">0.61</p>
+      <p style="font-size:10px;color:var(--t3)">composite score / 1.0</p>
+    </div>
+  </div>
+
+  <!-- Charts row -->
+  <div class="g32 mb">
+    <div class="card">
+      <p style="font-size:12px;font-weight:500;color:var(--t1);margin:0 0 2px">Volume trend and YoY velocity</p>
+      <p style="font-size:10px;color:var(--t3);margin:0 0 10px">Filings (bar, left axis) · YoY % (line, right axis)</p>
+      <div class="legend">
+        <span class="legend-item"><span class="swatch-sq" style="background:rgba(143,135,232,0.4)"></span>Filings</span>
+        <span class="legend-item"><span class="swatch-ln" style="background:#8F87E8"></span>YoY %</span>
+      </div>
+      <div style="position:relative;width:100%;height:190px">
+        <canvas id="trendChart" role="img" aria-label="Filings: 18,400 (2020), 21,200 (2021), 23,800 (2022), 22,100 (2023), 24,600 (2024), 26,800 (2025). YoY: +15.2%, +12.3%, -7.1%, +11.3%, +8.9%."></canvas>
+      </div>
+    </div>
+    <div class="card">
+      <p style="font-size:12px;font-weight:500;color:var(--t1);margin:0 0 2px">Functional domain mix (2024)</p>
+      <p style="font-size:10px;color:var(--t3);margin:0 0 10px">Share of filings · custom-v2 taxonomy</p>
+      <div style="position:relative;width:100%;height:222px">
+        <canvas id="domainChart" role="img" aria-label="Manipulation/Arm 28%, AI/ML Control 24%, Perception/Vision 19%, Surgical/Medical 12%, Autonomy 10%, HRI 7%."></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Assignees + Commercialisation -->
+  <div class="g2 mb">
+    <div class="card">
+      <p style="font-size:12px;font-weight:500;color:var(--t1);margin:0 0 12px">Top assignees (2024, all offices)</p>
+      <div class="tbl-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width:24px">#</th>
+              <th>Assignee</th>
+              <th style="width:44px">Type</th>
+              <th class="num" style="width:52px">Patents</th>
+              <th class="trnd" style="width:44px">Trend</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="color:var(--t3)">1</td><td>FANUC</td><td><span class="pill p-green" style="font-size:9px;padding:1px 5px">Corp</span></td><td class="num">1,847</td><td class="trnd" style="color:var(--green)">↑</td></tr>
+            <tr><td style="color:var(--t3)">2</td><td>ABB</td><td><span class="pill p-green" style="font-size:9px;padding:1px 5px">Corp</span></td><td class="num">1,623</td><td class="trnd" style="color:var(--green)">↑</td></tr>
+            <tr><td style="color:var(--t3)">3</td><td>Intuitive Surgical</td><td><span class="pill p-green" style="font-size:9px;padding:1px 5px">Corp</span></td><td class="num">1,442</td><td class="trnd" style="color:var(--green)">↑</td></tr>
+            <tr><td style="color:var(--t3)">4</td><td>Siemens</td><td><span class="pill p-green" style="font-size:9px;padding:1px 5px">Corp</span></td><td class="num">1,284</td><td class="trnd" style="color:var(--t3)">→</td></tr>
+            <tr><td style="color:var(--t3)">5</td><td>KUKA (Midea)</td><td><span class="pill p-green" style="font-size:9px;padding:1px 5px">Corp</span></td><td class="num">1,156</td><td class="trnd" style="color:var(--green)">↑</td></tr>
+            <tr><td style="color:var(--t3)">6</td><td>Boston Dynamics</td><td><span class="pill p-green" style="font-size:9px;padding:1px 5px">Corp</span></td><td class="num">891</td><td class="trnd" style="color:var(--green)">↑↑</td></tr>
+            <tr><td style="color:var(--t3)">7</td><td>NVIDIA</td><td><span class="pill p-green" style="font-size:9px;padding:1px 5px">Corp</span></td><td class="num">634</td><td class="trnd" style="color:var(--green)">↑↑ <span class="pill p-purple" style="font-size:9px;padding:1px 4px">new</span></td></tr>
+            <tr><td style="color:var(--t3)">8</td><td>Carnegie Mellon</td><td><span class="pill p-blue" style="font-size:9px;padding:1px 5px">Univ</span></td><td class="num">512</td><td class="trnd" style="color:var(--t3)">→</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <p style="font-size:12px;font-weight:500;color:var(--t1);margin:0 0 12px">Commercialisation signal breakdown</p>
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:11px;color:var(--t2)">Maintenance active</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="bar-track"><div class="bar-fill" style="width:76%;background:var(--green)"></div></div>
+            <span style="font-size:11px;font-weight:500;color:var(--t1);min-width:32px;text-align:right">76%</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:11px;color:var(--t2)">Product marking found</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="bar-track"><div class="bar-fill" style="width:31%;background:var(--green)"></div></div>
+            <span style="font-size:11px;font-weight:500;color:var(--t1);min-width:32px;text-align:right">31%</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:11px;color:var(--t2)">Licensing disclosed</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="bar-track"><div class="bar-fill" style="width:23%;background:var(--amber)"></div></div>
+            <span style="font-size:11px;font-weight:500;color:var(--t1);min-width:32px;text-align:right">23%</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:11px;color:var(--t2)">Post-grant assignments</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="bar-track"><div class="bar-fill" style="width:14%;background:var(--amber)"></div></div>
+            <span style="font-size:11px;font-weight:500;color:var(--t1);min-width:32px;text-align:right">14%</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:11px;color:var(--t2)">Litigation (IPR active)</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="bar-track"><div class="bar-fill" style="width:9%;background:var(--red)"></div></div>
+            <span style="font-size:11px;font-weight:500;color:var(--t1);min-width:32px;text-align:right">89</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:11px;color:var(--t2)">SEP declarations</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--t3)"></div></div>
+            <span style="font-size:11px;font-weight:500;color:var(--t3);min-width:32px;text-align:right">None</span>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--border);padding-top:8px;display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:11px;font-weight:500;color:var(--t1)">Composite score</span>
+          <span style="font-size:14px;font-weight:600;color:var(--amber)">0.61 / 1.0</span>
+        </div>
+        <div class="alert-amber">
+          <p><i class="ti ti-alert-triangle" style="font-size:11px;vertical-align:-1px;margin-right:3px" aria-hidden="true"></i>156 high-influence patents with score &lt; 0.3 — latent value flag</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inflection flags + White space -->
+  <div class="g2 mb">
+    <div class="card">
+      <p style="font-size:12px;font-weight:500;color:var(--t1);margin:0 0 12px">Inflection flags</p>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="border-left:2px solid var(--red);padding-left:10px">
+          <p style="font-size:11px;font-weight:500;color:var(--t1);margin:0 0 3px">2023 · −7.1% <span class="pill p-red" style="font-size:9px;padding:1px 6px;font-weight:400;margin-left:4px">reversal</span></p>
+          <p style="font-size:10px;color:var(--t2);line-height:1.65">CNIPA quality reforms compressing utility model filings + post-COVID automation pullback + tighter VC conditions globally</p>
+        </div>
+        <div style="border-left:2px solid var(--green);padding-left:10px">
+          <p style="font-size:11px;font-weight:500;color:var(--t1);margin:0 0 3px">2021 · +15.2% <span class="pill p-green" style="font-size:9px;padding:1px 6px;font-weight:400;margin-left:4px">acceleration</span></p>
+          <p style="font-size:10px;color:var(--t2);line-height:1.65">COVID-19 automation demand surge + China 14th Five Year Plan robotics mandate + US CHIPS Act anticipation driving defensive filing</p>
+        </div>
+        <div style="border-left:2px solid var(--blue);padding-left:10px">
+          <p style="font-size:11px;font-weight:500;color:var(--t1);margin:0 0 3px">2024 · +11.3% <span class="pill p-blue" style="font-size:9px;padding:1px 6px;font-weight:400;margin-left:4px">recovery</span></p>
+          <p style="font-size:10px;color:var(--t2);line-height:1.65">NVIDIA Isaac + RT-2 foundation models entering IP filings; humanoid robot race (Figure, 1X, Agility) generating new corpus</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p style="font-size:12px;font-weight:500;color:var(--t1);margin:0 0 2px">White space signal</p>
+      <p style="font-size:10px;color:var(--t3);margin:0 0 12px">High velocity · below-median volume · low commercialisation density</p>
+      <div class="ws-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+          <span style="font-size:11px;font-weight:500;color:var(--t1)">AI perception × surgical</span>
+          <span class="pill p-purple" style="font-size:9px;padding:1px 6px">high signal</span>
+        </div>
+        <p style="font-size:10px;color:var(--t2);line-height:1.65">Fastest-growing intersection. Intuitive Surgical leads but broad whitespace remains for vision-guided autonomy in minimally invasive surgery. No dominant platform IP holder yet.</p>
+      </div>
+      <div class="ws-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+          <span style="font-size:11px;font-weight:500;color:var(--t1)">Human-robot interaction (HRI)</span>
+          <span class="pill p-purple" style="font-size:9px;padding:1px 6px">high signal</span>
+        </div>
+        <p style="font-size:10px;color:var(--t2);line-height:1.65">7% share but fastest YoY growth in functional mix. Commercialisation score 0.38 vs sector avg 0.61. Humanoid + cobot volume rising; no dominant assignee established.</p>
+      </div>
+      <button class="run-btn" onclick="sendPrompt('Run opportunity-mapping-pipeline for robotics HRI and AI perception subdomains')">Run opportunity-mapping-pipeline for these zones ↗</button>
+    </div>
+  </div>
+
+  <!-- Narrative -->
+  <div class="card mb">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+      <i class="ti ti-align-left" style="font-size:14px;color:var(--t3)" aria-hidden="true"></i>
+      <span style="font-size:12px;font-weight:500;color:var(--t1)">Trend narrative</span>
+      <span style="font-size:10px;color:var(--t3);margin-left:auto">narrative-synthesizer · 2025-05-23</span>
+    </div>
+    <p class="narrative-p">Robotics patent activity from 2020 to 2025 shows a two-phase arc: a COVID-driven acceleration through 2022, a sharp correction in 2023 attributable to CNIPA quality reforms compressing low-grade utility model filings alongside a pullback in speculative AI-robotics applications, and a structural recovery from 2024 anchored by foundation-model-based robotics emerging as a distinct technology class.</p>
+    <p class="narrative-p">The commercialisation score of 0.61 reflects a maturing but fragmented landscape. Maintenance activity is high (76%), indicating portfolios are actively curated, but disclosed licensing remains low (23%), suggesting most value is locked in vertical integration rather than open licensing. The 156-patent latent value flag — high forward citations, low commercialisation signal — represents the highest-priority target set for licensing programme development or acquisition strategy.</p>
+    <p class="narrative-p">NVIDIA's entry into the top-10 assignees as a new entrant in 2024 is the most significant competitive shift in the cohort. Combined with the HRI and AI-perception white space signals, the data suggests the 2025–2027 window is when foundational platform IP in embodied AI will be established — likely concentrated among a small number of vertically integrated players moving at speed.</p>
+  </div>
+
+  <!-- Sources -->
+  <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+    <span style="font-size:10px;color:var(--t3)">Sources:</span>
+    <span class="src-tag">Espacenet</span>
+    <span class="src-tag">Lens.org</span>
+    <span class="src-tag">USPTO PatFT</span>
+    <span style="font-size:10px;color:var(--t3);margin-left:2px">· IPC: B25J, G05B · Citation window ≥ 24 months applied · Self-citations excluded</span>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+function sendPrompt(msg) { console.log('[sendPrompt]', msg); }
+
+const gc = 'rgba(255,255,255,0.05)';
+const tc = '#7C7B92';
+const tt = { backgroundColor: '#1C1C28', borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1, padding: 8 };
+
+Chart.defaults.color = tc;
+Chart.defaults.borderColor = gc;
+Chart.defaults.font.family = 'system-ui, -apple-system, "Segoe UI", sans-serif';
+
+new Chart(document.getElementById('trendChart'), {
+  data: {
+    labels: ['2020','2021','2022','2023','2024','2025'],
+    datasets: [
+      {
+        type: 'bar', label: 'Filings',
+        data: [18400,21200,23800,22100,24600,26800],
+        backgroundColor: 'rgba(143,135,232,0.35)',
+        borderColor: '#8F87E8', borderWidth: 1,
+        borderRadius: 3, yAxisID: 'y'
+      },
+      {
+        type: 'line', label: 'YoY %',
+        data: [null,15.2,12.3,-7.1,11.3,8.9],
+        borderColor: '#8F87E8', backgroundColor: 'transparent',
+        borderWidth: 2, pointRadius: 3, pointBackgroundColor: '#8F87E8',
+        tension: 0.3, yAxisID: 'y2'
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { ...tt, callbacks: { label: ctx => ctx.datasetIndex === 0 ? ` ${ctx.parsed.y.toLocaleString()} filings` : ` ${ctx.parsed.y.toFixed(1)}% YoY` } }
+    },
+    scales: {
+      y:  { position: 'left',  grid: { color: gc }, ticks: { color: tc, font: { size: 10 }, callback: v => `${Math.round(v/1000)}k` }, border: { color: 'transparent' } },
+      y2: { position: 'right', grid: { display: false }, ticks: { color: '#8F87E8', font: { size: 10 }, callback: v => `${v}%` }, border: { color: 'transparent' } },
+      x:  { grid: { display: false }, ticks: { color: tc, font: { size: 10 } }, border: { color: 'transparent' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('domainChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Manipulation/Arm','AI/ML Control','Perception/Vision','Surgical/Medical','Autonomy/Nav','HRI'],
+    datasets: [{
+      data: [28,24,19,12,10,7],
+      backgroundColor: ['#5E55D0','#7B73E0','#9C96EC','#22B885','#44C99A','#6DDAB0'],
+      borderRadius: 3
+    }]
+  },
+  options: {
+    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { ...tt, callbacks: { label: ctx => ` ${ctx.parsed.x}% of filings` } }
+    },
+    scales: {
+      x: { grid: { color: gc }, ticks: { color: tc, font: { size: 10 }, callback: v => `${v}%` }, border: { color: 'transparent' } },
+      y: { grid: { display: false }, ticks: { color: tc, font: { size: 10 } }, border: { color: 'transparent' } }
+    }
+  }
+});
+</script>
+</body>
+</html>
